@@ -1,0 +1,14 @@
+{
+    "parser": "babel-eslint",
+    "evn": {
+        "es6": true,
+        "browser":true,
+        "node":true
+    },
+    "rules": {
+"semi":"off",
+"arrow-parents": "off",
+"comma-dengle": "off"
+    },
+    "extends": ["eslint:recommended", "google"]
+}
