@@ -9,26 +9,27 @@ const isDev = !isProd;
 
 const filename = (ext) => (isDev ? `bundle.${ext}` : `bundle.[hash].${ext}`);
 
-
 const jsLoaders = () => {
-    const loaders = [
-        {
-            loader:' babel-loader',
-            options: {
-                presets: ['@babel/preset-env']
-            }
-        }
-    ]
-    if (isDev) {
-loaders.push('eslint-loader')
-    }
-    return loaders
-}
+  const loaders = [
+    {
+      loader: "babel-loader",
+      options: {
+        presets: ["@babel/preset-env"],
+      },
+    },
+  ];
+
+  if (isDev) {
+    loaders.push("eslint-loader");
+  }
+
+  return loaders;
+};
 
 module.exports = {
   context: path.resolve(__dirname, "src"),
   mode: "development",
-  entry: ['@babel/polyfill',"./index.js"],
+  entry: ["@babel/polyfill", "./index.js"],
   output: {
     filename: filename("js"),
     path: path.resolve(__dirname, "dist"),
@@ -58,7 +59,7 @@ module.exports = {
     //   {
     //     from: path.resolve(__dirname, "src/favicon.ico"),
     //     to: path.resolve(__dirname, "dist"),
-    //   }
+    //   },
     // ]),
     new MiniCssExtractPlugin({
       filename: filename("css"),
@@ -69,24 +70,21 @@ module.exports = {
       {
         test: /\.s[ac]ss$/i,
         use: [
-          // Creates `style` nodes from JS strings
           {
-              loader:MiniCssExtractPlugin.loader,
-              options: {
-                  hmr:isDev,
-                  reloadAll:true
-              }
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: isDev,
+              reloadAll: true,
+            },
           },
-          // Translates CSS into CommonJS
           "css-loader",
-          // Compiles Sass to CSS
           "sass-loader",
         ],
       },
       {
-        test: /\.m?js$/,
+        test: /\.js$/,
         exclude: /node_modules/,
-        use: jsLoaders() 
+        use: jsLoaders(),
       },
     ],
   },
