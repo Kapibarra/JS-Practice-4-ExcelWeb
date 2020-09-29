@@ -1,6 +1,6 @@
 {
     "parser": "babel-eslint",
-    "evn": {
+    "env": {
         "es6": true,
         "browser":true,
         "node":true
@@ -8,7 +8,10 @@
     "rules": {
 "semi":"off",
 "arrow-parents": "off",
-"comma-dengle": "off"
+"comma-dengle": "off",
+"linebreak-style" : [ "error" ,  "windows" ]
     },
     "extends": ["eslint:recommended", "google"]
 }
+
+
