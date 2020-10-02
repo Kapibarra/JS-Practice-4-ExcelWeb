@@ -9,7 +9,17 @@
 "semi":"off",
 "arrow-parents": "off",
 "comma-dengle": "off",
-"linebreak-style" : [ "error" ,  "windows" ]
+"linebreak-style" : "off",
+"object-curly-spacing": "off",
+"quotes":"off",
+"indent":"off",
+"require-jsdoc":"off",
+"eol-last":"off",
+"operator-linebreak": "off",
+"no-trailing-spaces": "off",
+"func-call-spacing" : "off",
+
+
     },
     "extends": ["eslint:recommended", "google"]
 }
