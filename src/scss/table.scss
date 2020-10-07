@@ -49,10 +49,13 @@
         border-left: 0;
         color: #111111;
         white-space: nowrap;
-        &:active {
+        &.selected {
             border: none;
             outline: 2px solid $primary-color;
             z-index: 2;
+        }
+        &:focus {
+            border: 0px solid;
         }
     }
     .col-resize {
