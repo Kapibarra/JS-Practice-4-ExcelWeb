@@ -6,6 +6,9 @@ const CODES = {
 const DEFAULT_WIDTH = 120
 
 function getWidth(state, index) {
+    if (!state) {
+        return (DEFAULT_WIDTH) + 'px'
+    }
     return (state[index] || DEFAULT_WIDTH) + 'px'
 }
 
@@ -26,10 +29,8 @@ style="width: ${width}">
 
 function toColumn({ col, index, width }) {
     return `
-    <div class="column" data-type="resizeable" data-col="${index}" 
-    style="width: ${width}">
-    ${col}
-    <div class="col-resize" data-resize="col"></div>
+    <div class="column" data-type="resizeable" data-col="${index}" style="width: ${width}">
+    ${col}<div class="col-resize" data-resize="col"></div>
     </div>
     `
 }
