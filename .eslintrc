@@ -18,6 +18,7 @@
 "operator-linebreak": "off",
 "no-trailing-spaces": "off",
 "func-call-spacing" : "off",
+"max-len": "off"
 
 
     },
