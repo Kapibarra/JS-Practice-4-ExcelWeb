@@ -53,7 +53,6 @@ function toChar(_, index) {
     return String.fromCharCode(CODES.A + index)
 }
 
-
 function withWidthFrom(state) {
     return function(col, index) {
         return {
