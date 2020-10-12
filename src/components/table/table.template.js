@@ -1,3 +1,6 @@
+import { defaultStyles } from "../../constants"
+import { toInlineStyles } from "../../core/utils"
+
 const CODES = {
     A: 65,
     Z: 90,
@@ -19,39 +22,55 @@ function toCell(state, row) {
         const id = `${row}:${col}`
         const width = getWidth(state.colState, col)
         const data = state.dataState[id]
+        const styles = toInlineStyles({
+            ...defaultStyles,
+            ...state.stylesState[id],
+        })
         return `
-<div class="cell" 
-contenteditable 
-data-col="${col}"
-data-type="cell"
-data-id="${id}"
-style="width: ${width}">${data || ''}</div>
-`
+      <div 
+        class="cell" 
+        contenteditable 
+        data-col="${col}"
+        data-type="cell"
+        data-id="${id}"
+        data-value="${data || ''}"
+        style="${styles}; width: ${width}"
+      >${data || ''}</div>
+    `
     }
 }
 
 function toColumn({ col, index, width }) {
     return `
-    <div class="column" data-type="resizeable" data-col="${index}" style="width: ${width}">
-    ${col}<div class="col-resize" data-resize="col"></div>
+    <div 
+      class="column" 
+      data-type="resizable" 
+      data-col="${index}" 
+      style="width: ${width}"
+    >
+      ${col}
+      <div class="col-resize" data-resize="col"></div>
     </div>
-    `
+  `
 }
 
-function createRow(index, content, state) {
-    const resize = index ? '  <div class="row-resize" data-resize="row"></div>' : ''
+function createRow(index, content, state = {}) {
+    const resize = index ? '<div class="row-resize" data-resize="row"></div>' : ''
     const height = getHeight(state, index)
     return `
-    <div class="row" data-type="resizeable"
-    data-row="${index}"
-    style="height: ${height}">
-     <div class="row-info">
-     ${index ? index : ''}
-     ${resize}
-     </div>
-     <div class="row-data">${content}</div>
+    <div 
+      class="row" 
+      data-type="resizable" 
+      data-row="${index}"
+      style="height: ${height}"
+    >
+      <div class="row-info">
+        ${index ? index : ''}
+        ${resize}
+      </div>
+      <div class="row-data">${content}</div>
     </div>
-    `
+  `
 }
 
 function toChar(_, index) {
@@ -68,8 +87,8 @@ function withWidthFrom(state) {
     }
 }
 
-export function createTable(rowsCount = 20, state = {}) {
-    const colsCount = CODES.Z - CODES.A
+export function createTable(rowsCount = 15, state = {}) {
+    const colsCount = CODES.Z - CODES.A + 1 // Compute cols count
     const rows = []
 
     const cols = new Array(colsCount)
@@ -79,7 +98,7 @@ export function createTable(rowsCount = 20, state = {}) {
         .map(toColumn)
         .join('')
 
-    rows.push(createRow(null, cols, {}))
+    rows.push(createRow(null, cols))
 
     for (let row = 0; row < rowsCount; row++) {
         const cells = new Array(colsCount)
