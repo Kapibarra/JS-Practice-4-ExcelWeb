@@ -9,20 +9,20 @@ export class DomListener {
         this.listeners = listeners
     }
     initDOMListeners() {
-        // console.log(this.listeners)j
-
         this.listeners.forEach((listener) => {
             const method = getMethodName(listener)
             if (!this[method]) {
-                throw new Error(`Method ${method} is not emplemented in
-                ${this.name} Component`)
+                const name = this.name || ''
+                throw new Error(
+                    `Method ${method} is not implemented in ${name} Component`
+                )
             }
             this[method] = this[method].bind(this)
                 // same as addEventListener in dom.js
-            this.$root.on(listener, this[method].bind(this))
+            this.$root.on(listener, this[method])
         })
     }
-    removeDOMListener() {
+    removeDOMListeners() {
         this.listeners.forEach((listener) => {
             const method = getMethodName(listener)
             this.$root.off(listener, this[method])
